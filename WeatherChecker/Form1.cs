@@ -38,6 +38,15 @@ namespace WeatherChecker
             string url = "https://and-idea.sbcr.jp/sp/90261/weatherCheck.php?city=" + cityCode;
             HttpClient client = new HttpClient();
             string result = client.GetStringAsync(url).Result;
+
+            JObject jobj = JObject.Parse(result);
+            string todayWeatherIcon = (string)((jobj["url"] as JValue).Value);
+            weatherIcon.ImageLocation = todayWeatherIcon;
+        }
+
+        private void ExitMenuClicked(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
